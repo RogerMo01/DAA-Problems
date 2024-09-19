@@ -59,8 +59,8 @@ def gen_graphs(count, lenght=3):
 ############################## GENERATE TEST CASES ################################
 naive = Naive()
 
-cases_qtty = 1
-vertex_qtty = 20
+cases_qtty = 15
+vertex_qtty = 8
 
 graphs = gen_graphs(cases_qtty, vertex_qtty)
 solutions = [naive(g) for g in graphs]
