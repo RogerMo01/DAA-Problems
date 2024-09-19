@@ -1,25 +1,28 @@
 import os
 import json
 from dynamic_solution import DynamicSolution
+from naive import Naive
+from best_solution import BestSolution
 
 path = 'cat_mouse/tests/'
 test_cases = os.listdir(path)
 
-solver = DynamicSolution()
+# solver = Naive()
+# solver = DynamicSolution()
+solver = BestSolution()
 
 total_cases = len(test_cases)
 print(f"{total_cases} Test cases")
 
+case_i = 1
 for case_name in test_cases:
-    case_i = 1
     graph = {}
-    solution = -100
+    solution = -2
 
     with open(path+case_name, 'r') as file:
-        content = file.read()
-        case = json.loads(content)
+        case = json.load(file)
 
-        graph: dict = case['graph'] 
+        graph = case['graph'] 
         solution = case['solution']
 
         # Map string keys to integrs
@@ -27,7 +30,11 @@ for case_name in test_cases:
             graph[i] = graph[f"{i}"]
             del graph[f"{i}"]
 
+        print(graph)
+    
+
     solver_solution = solver(graph)
 
     print(f"Case {case_i} of {total_cases}: {case_name}")
     print(f"🟢 {solver_solution}" if solver_solution == solution else f"🔴 {solver_solution}, but {solution} expected")
+    case_i += 1
