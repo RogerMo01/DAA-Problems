@@ -30,8 +30,6 @@ for case_name in test_cases:
             graph[i] = graph[f"{i}"]
             del graph[f"{i}"]
 
-        print(graph)
-    
 
     solver_solution = solver(graph)
 
