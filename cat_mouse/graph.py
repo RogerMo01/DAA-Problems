@@ -24,15 +24,10 @@ class State:
         self.color = None
 
         self.adj: list[State] = []
-        self.parents: list[State] = []
 
 
     def append_adj(self, state: 'State'):
         self.adj.append(state)
-        state.append_parent(self)
-
-    def append_parent(self, state: 'State'):
-        self.parents.append(state)
 
     def __hash__(self) -> int:
         return hash(repr(self))

@@ -1,8 +1,11 @@
 import os
+import sys
 import json
 import time
 from dynamic_solution import DynamicSolution
 from best_solution import BestSolution
+
+sys.setrecursionlimit(10**6)
 
 path = 'cat_mouse/tests/'
 test_cases = os.listdir(path)

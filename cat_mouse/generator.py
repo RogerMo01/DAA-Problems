@@ -2,7 +2,11 @@ import json
 import datetime
 from graph import Graph
 from naive import Naive
+from dynamic_solution import DynamicSolution
 from random import randint, shuffle, choice
+import sys
+
+sys.setrecursionlimit(10**6)
 
 def gen_axis(nodes, M):
     axis = [[] for _ in range(len(nodes))]
@@ -57,10 +61,10 @@ def gen_graphs(count, lenght=3):
 
 
 ############################## GENERATE TEST CASES ################################
-naive = Naive()
+naive = DynamicSolution()
 
-cases_qtty = 15
-vertex_qtty = 8
+cases_qtty = 1
+vertex_qtty = 50
 
 graphs = gen_graphs(cases_qtty, vertex_qtty)
 solutions = [naive(g) for g in graphs]

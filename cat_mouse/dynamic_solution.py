@@ -2,7 +2,6 @@ from graph import State, Draw
 from naive import Naive
 from typing import Any
 
-
 class DynamicSolution(Naive):
     def __init__(self) -> None:
         self.graph = None
