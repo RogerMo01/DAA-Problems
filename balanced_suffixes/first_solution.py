@@ -70,7 +70,7 @@ class FirstSolution(Naive):
                     else:
                         flag_add = False
                         flag_break = True
-                        break
+                        continue
             
             if not flag_break: 
                 result.append(char)
