@@ -2,13 +2,13 @@ import os
 import json
 import time
 from first_solution import FirstSolution
-from greedy_solution import GreedySolution
+from second_solution import SecondSolution
 
 path = 'balanced_suffixes/tests/'
 test_cases = os.listdir(path)
 
 # solver = FirstSolution()
-solver = GreedySolution()
+solver = SecondSolution()
 
 lap = 0
 times = []

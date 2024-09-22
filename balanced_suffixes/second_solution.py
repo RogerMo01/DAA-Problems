@@ -1,6 +1,6 @@
 from naive import Naive
 
-class GreedySolution(Naive):
+class SecondSolution(Naive):
     def __call__(self, s: str, k: int):
 
         self.char_counter = self.get_frequency_characters_string(s)
@@ -12,8 +12,8 @@ class GreedySolution(Naive):
         # frequency counter of characters sorted in descending order O(nlogn)
         character_sorted = dict(sorted(self.char_counter.items(), key=lambda x: x[0]))
     
-        result = []
-
+        result = ''
+        
         while len(result) < len(s):
             for char in character_sorted:
                 if self.char_counter[char] == 0:
@@ -21,12 +21,12 @@ class GreedySolution(Naive):
                 
                 self.char_counter[char] -= 1
                 max_frequency = max(self.char_counter.values())
-                min_frequency = min([frequency for frequency in self.char_counter.values()])
+                min_frequency = min(self.char_counter.values())
 
                 if max_frequency - min_frequency <= k:
-                    result.append(char)
+                    result += char
                     break
                 else:
                     self.char_counter[char] += 1
 
-        return ''.join(result)
+        return result

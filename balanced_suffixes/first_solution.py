@@ -1,11 +1,12 @@
 from naive import Naive
-from itertools import combinations
 
 class FirstSolution(Naive):
     def __call__(self, s: str, k: int):
         
         self.char_counter = self.get_frequency_characters_string(s)
         
+        char_combinations_list = self.get_char_combination_list()
+
         if len(s) == 1: return s
         
         if(k == 0 and len(self.char_counter) != 1): return -1
@@ -16,20 +17,7 @@ class FirstSolution(Naive):
         # frequency counter in the chain under construction
         character_frequency = dict.fromkeys(character_sorted_desc.keys(), 0)
 
-        char_copy = sorted(self.char_counter.keys(), reverse=True) 
-
-        # combinations for any pair of characters in the original string  O(n^2)
-        char_combinations_list = []
-        for char_i, char_j in combinations(char_copy, 2):
-            char_combinations_list.append((char_i, char_j))
-
-        result = []
-
-        first_char = char_copy[0]
-        character_sorted_desc[first_char] -= 1
-        if character_sorted_desc[first_char] == 0: del character_sorted_desc[first_char]
-        character_frequency[first_char] += 1
-        result.append(first_char)
+        result = ''
 
         flag_add = True
 
@@ -40,29 +28,22 @@ class FirstSolution(Naive):
             character_sorted_desc[char] -= 1
             character_frequency[char] += 1
 
-            for item in char_combinations_list:
-                char_i = item[0]
-                char_j = item[1]
-                frequency_i = character_frequency[char_i]
-                frequency_j = character_frequency[char_j]
+            frequency_char = character_frequency[char]
 
-                if abs(frequency_i - frequency_j) <= k:
+            for other_char in char_combinations_list[char]:
+                frequency_other = character_frequency[other_char]
+
+                if abs(frequency_char - frequency_other) <= k:
                     continue
 
                 else:
-                    char_x = ''
-                    if(char_i == char):
-                        char_x = char_j
-                    else: 
-                        char_x == char_i
-
-                    if char_x in character_sorted_desc:
+                    if other_char in character_sorted_desc:
                         character_sorted_desc[char] += 1
                         character_frequency[char] -= 1
-                        result.append(char_x)
-                        character_sorted_desc[char_x] -= 1
-                        character_frequency[char_x] += 1
-                        if character_sorted_desc[char_x] == 0: del character_sorted_desc[char_x]
+                        result += other_char
+                        character_sorted_desc[other_char] -= 1
+                        character_frequency[other_char] += 1
+                        if character_sorted_desc[other_char] == 0: del character_sorted_desc[other_char]
                         flag_add = True
                         flag_break = True
                         break
@@ -73,7 +54,7 @@ class FirstSolution(Naive):
                         continue
             
             if not flag_break: 
-                result.append(char)
+                result += char
                 if character_sorted_desc[char] == 0: del character_sorted_desc[char]
                 flag_add = True
 
@@ -82,6 +63,19 @@ class FirstSolution(Naive):
             return -1
 
         elif len(character_sorted_desc) == 0:
-            result = ''.join(result)
+            # result = ''.join(result)
             reversed_string = result[::-1]
             return reversed_string
+        
+
+    def get_char_combination_list(self):
+        char_combinations_list = {}
+        for item1 in self.char_counter.keys():
+            characters = []
+            for item2 in self.char_counter.keys():
+                if item1 != item2:
+                    characters.append(item2)
+
+            char_combinations_list[item1] = sorted(characters,reverse=True)
+
+        return char_combinations_list

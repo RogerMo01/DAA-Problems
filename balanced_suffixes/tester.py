@@ -2,14 +2,14 @@ import os
 import json
 from naive import Naive
 from first_solution import FirstSolution
-from greedy_solution import GreedySolution
+from second_solution import SecondSolution
 
 path = 'balanced_suffixes/tests/'
 test_cases = os.listdir(path)
 
 # solver = Naive()
 # solver = FirstSolution()
-solver = GreedySolution()
+solver = SecondSolution()
 
 
 total_cases = len(test_cases)
